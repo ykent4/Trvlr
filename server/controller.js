@@ -5,12 +5,12 @@ module.exports = {
   user: {
 
     get: function (req, res) {
-      model.user.get(req.body.user, function(err, result) {
+      model.user.get(req.params.username, function(err, result) {
         if(err) {
           res.sendStatus(500);
           return;
         } else {
-          console.log('RESULT:: ', result);
+          console.log('GET USER RESULT:: ', result);
           res.json(result);
         }
       });

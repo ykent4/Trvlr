@@ -20,7 +20,6 @@ class App extends React.Component {
 
   render() {
     console.log('this works :: ', this.props);
-    console.log()
     return (
       <div>
         <Switch>

@@ -7,7 +7,7 @@ module.exports = {
   user: {
     //gets all the locations saved and traveled for the user
     get: function (user, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ "username": user })
         .exec(cb);
     },
 

@@ -2,7 +2,7 @@ const controller = require('./controller.js');
 const router = require('express').Router();
 
 //Connect controller methods to their corresponding routes
-router.get('/user/login', controller.user.get);
+router.get('/user/login/:username', controller.user.get);
 
 router.post('/user/signup', controller.user.signUpUser);
 

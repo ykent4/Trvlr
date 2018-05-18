@@ -1,55 +1,104 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import Actions from '../js/actions/index.js';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import { getUser } from '../js/actions/index.js';
+import { Alert, FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 
-import style from './styles/login.css';
+import style from './styles/login.scss';
 
 //changes views between login page, destination page and profile page
 class ConnectedLogin extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      username: '',
+      loggedIn: false,
+      unauthenticated: false,
+    };
+
+    this.handleUsernameInput = this.handleUsernameInput.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
   //on submit of the button, needs to make an axios get request to the user database
-    //if success, there is user, send back user and data
-    //if failure, say new user created and create user
-    //go to destination in both cases
+  //if success, there is user, send back user and data
+  //if failure, ask if new user? if yes, create user and continue
+  //go to destination in both cases
 
-  //initial implementation will directly go to destination and ignore user for now
+  handleUsernameInput(e) {
+
+    this.setState({ username: e.target.value });
+
+  }
+
+  handleLoginClick() {
+
+    this.props.getUser(this.state.username);
+    if (!!this.props.user) {
+      this.setState({ loggedIn: true });
+    } else {
+      this.setState({ unauthenticated: true });
+    }
+
+  }
 
   render() {
-    return (
-      <form>
-        <FormGroup controlId="formBasicText" >
 
-          <ControlLabel>Login</ControlLabel>
-          <FormControl 
-           className={style.input_box}
-            type="text"
-            // value=''
-            placeholder="Enter text"
-            // onChange=''
-          />
-          <HelpBlock>Please enter username to login</HelpBlock>
-        </FormGroup>
+    var alert
 
-         <Button type="button">Submit</Button>
-      </form>
+    if (this.state.unauthenticated) {
+      alert = <Alert bsStyle="warning">
+        <strong>User not found. Please sign up or try again.</strong>
+      </Alert>;
+    }
 
-    );
+      if (this.state.loggedIn) {
+        return <Redirect to={'/destination'} />
+      }
+      
+      return (
+
+        <div className={style.login_container}>
+
+          <h2> Travel Board </h2>
+
+          <form className={style.form}>
+            <FormGroup controlId="formBasicText" >
+
+              <FormControl
+                className={style.input_box}
+                type="text"
+                value={this.state.username}
+                placeholder="Enter username"
+                onChange={this.handleUsernameInput}
+              />
+              <HelpBlock>Please enter username to login</HelpBlock>
+            </FormGroup>
+            {/* <Link to={this.state.view}> */}
+            <Button type="button" onClick={this.handleLoginClick}>Login</Button>
+            {/* </Link> */}
+          </form>
+
+          {alert}
+
+        </div>
+
+      );
+    }
   }
-}
 
-const mapStateToProps = state => {
+  const mapStateToProps = state => {
+    console.log('state -->', state.Login.user);
+    return {
+      user: state.Login.user
+    };
+  }
 
-}
+  const mapDispatchToProps = dispatch => {
+    return bindActionCreators({ getUser }, dispatch);
+  };
 
-const mapDispatchToProps = dispatch => {
-
-};
-
-const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
-export default Login;
+  const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
+  export default Login;

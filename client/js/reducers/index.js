@@ -5,21 +5,25 @@ import { combineReducers } from "redux";
 // import UserView from './UserView';
 import User from './User';
 import Destination from './Destination';
+import View from './View';
+import Login from './Login';
 
-window.initialState = {
-  // loginView: true,
-  // destinationView: false,
-  // userView: false,
-  user: {},
-  destinations: []
-};
+// window.initialState = {
+//   // loginView: true,
+//   // destinationView: false,
+//   // userView: false,
+//   user: {},
+//   destinations: []
+// };
 
 const rootReducer = combineReducers({
   // LoginView,
   // DestinationView,
   // UserView,
+  Login,
   User,
-  Destination
+  Destination,
+  View,
 });
 
 export default rootReducer;
