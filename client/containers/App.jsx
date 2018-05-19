@@ -7,8 +7,8 @@ import Actions from '../js/actions/index.js';
 import BucketList from './BucketList.jsx';
 import Destination from './Destination.jsx';
 import Login from './Login.jsx';
-import Memories from './NavBar.jsx';
-import NavBar from './NavBar.jsx';
+import Memories from './Memories.jsx';
+import NavigationBar from './NavigationBar.jsx';
 import User from './User.jsx';
 
 //changes views between login page, destination page and profile page
@@ -22,6 +22,7 @@ class App extends React.Component {
     console.log('this works :: ', this.props);
     return (
       <div>
+        <NavigationBar />
         <Switch>
           <Route exact path='/' component={Login} />
           <Route path='/destination' component={Destination} />

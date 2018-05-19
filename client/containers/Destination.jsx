@@ -11,20 +11,18 @@ class ConnectedDestination extends React.Component {
   constructor(props) {
     super(props);
 
-    this.renderEightCards = this.renderEightCards.bind(this);
+    this.renderSixCards = this.renderSixCards.bind(this);
   }
 
   componentDidMount() {
     this.props.getDestinations();
   }
 
-  renderEightCards() {
-    let eightCards = this.props.destinations.slice(0,8);
+  renderSixCards() {
+    let sixCards = this.props.destinations.slice(0,6);
     let classCounter = 0;
 
-    console.log('redner eight cards : ', eightCards);
-
-    return eightCards.map((destination) => {
+    return sixCards.map((destination) => {
       classCounter++;
       return <Card key={destination.name} destination={destination} classNumber={classCounter}/>
     })
@@ -34,7 +32,7 @@ class ConnectedDestination extends React.Component {
 
     return (
       <div className={style.container}>
-        {this.props.destinations.length > 1 && this.renderEightCards()}
+        {this.props.destinations.length > 1 && this.renderSixCards()}
       </div>
     );
   }

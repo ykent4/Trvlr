@@ -1,5 +1,21 @@
+body {
+  background-color: #f1f1f8;
+}
+
 .login_container {
   margin: auto;
-  width: 50%;
+  width: 500px;
+  text-align: center;
+
+  Button {
+    margin: 3px;
+  }
 }
+
+.alert {
+  margin: 10%;
+}
+
+
+
 

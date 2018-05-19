@@ -36,69 +36,68 @@ class ConnectedLogin extends React.Component {
   handleLoginClick() {
 
     this.props.getUser(this.state.username);
-    if (!!this.props.user) {
-      this.setState({ loggedIn: true });
-    } else {
-      this.setState({ unauthenticated: true });
-    }
+
+    setTimeout(() => {
+      if (!!this.props.user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ unauthenticated: true });
+      }
+    }, 100);
 
   }
 
   render() {
 
-    var alert
-
-    if (this.state.unauthenticated) {
-      alert = <Alert bsStyle="warning">
-        <strong>User not found. Please sign up or try again.</strong>
-      </Alert>;
+    if (this.state.loggedIn) {
+      return <Redirect to={'/destination'} />
     }
 
-      if (this.state.loggedIn) {
-        return <Redirect to={'/destination'} />
-      }
-      
-      return (
+    console.log('logged in ', this.state.loggedIn);
 
-        <div className={style.login_container}>
+    return (
 
-          <h2> Travel Board </h2>
+      <div className={style.login_container}>
 
-          <form className={style.form}>
-            <FormGroup controlId="formBasicText" >
+        <h2> TRVLR </h2>
 
-              <FormControl
-                className={style.input_box}
-                type="text"
-                value={this.state.username}
-                placeholder="Enter username"
-                onChange={this.handleUsernameInput}
-              />
-              <HelpBlock>Please enter username to login</HelpBlock>
-            </FormGroup>
-            {/* <Link to={this.state.view}> */}
-            <Button type="button" onClick={this.handleLoginClick}>Login</Button>
-            {/* </Link> */}
-          </form>
+        <form className={style.form}>
+          <FormGroup controlId="formBasicText" >
 
-          {alert}
+            <FormControl
+              className={style.input_box}
+              type="text"
+              value={this.state.username}
+              placeholder="Enter username"
+              onChange={this.handleUsernameInput}
+            />
+            <HelpBlock>Please enter username to login</HelpBlock>
+          </FormGroup>
+          <Button type="button" onClick={this.handleLoginClick}>Login</Button>
+          <Button type="button" >Sign Up</Button>
 
-        </div>
+        </form>
 
-      );
-    }
+        {this.state.unauthenticated && <Alert bsStyle="warning" className={style.alert}>
+          <strong>User not found. Please sign up or try again.</strong>
+        </Alert>}
+
+      </div>
+
+    );
   }
+}
 
-  const mapStateToProps = state => {
-    console.log('state -->', state.Login.user);
-    return {
-      user: state.Login.user
-    };
-  }
-
-  const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ getUser }, dispatch);
+const mapStateToProps = state => {
+  console.log('state -->', state.Login.user);
+  return {
+    user: state.Login.user
   };
+}
 
-  const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
-  export default Login;
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ getUser }, dispatch);
+};
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
+export default Login;
