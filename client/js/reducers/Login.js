@@ -14,7 +14,7 @@
 
 import { GET_USER, GET_USER_SUCCESS } from '../actions';
 
-export default function (state = {}, action) {
+export default function (state = {user: {username: 'user'}}, action) {
   // console.log('user login reducers ', action);
   switch (action.type) {
     case GET_USER_SUCCESS:
@@ -22,7 +22,6 @@ export default function (state = {}, action) {
       let newState;
       newState = Object.assign({}, state);
       newState.user = action.payload.data;
-      console.log('new state --->', newState);
       return newState;
 
     default:

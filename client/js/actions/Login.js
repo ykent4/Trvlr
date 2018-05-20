@@ -4,13 +4,13 @@ export const GET_USER = 'GET_USER';
 
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 
-export function getUser(user, cb) {
+export function getUser(user) {
   return {
     type: GET_USER,
     payload: {
       request: {
         url:`/user/login/${user}`,
-      }
+      },
     }
   }
 };

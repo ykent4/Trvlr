@@ -16,15 +16,28 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      reRender: false,
+    }
+
+    this.rerenderNavBar = this.rerenderNavBar.bind(this);
+  }
+
+  rerenderNavBar() {
+    this.setState((prevState) => {
+      return { reRender: !prevState.reRender }
+    })    
   }
 
   render() {
-    console.log('this works :: ', this.props);
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar rerender={this.state.reRender}/>  
         <Switch>
-          <Route exact path='/' component={Login} />
+          <Route
+            exact path='/'
+            render={(props) => <Login {...props} rerenderNavBar={this.rerenderNavBar} />}
+          />
           <Route path='/destination' component={Destination} />
           {/* <Route path='/user' component={User} />
           <Route path='/user/bucket_list' component={BucketList} />
@@ -33,6 +46,7 @@ class App extends React.Component {
       </div>
     );
   }
+
 }
 
 // const mapStateToProps = state => {

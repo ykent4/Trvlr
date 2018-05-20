@@ -1,30 +1,82 @@
 import React from 'react';
+import {
+  Alert,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+  Button,
+  OverlayTrigger,
+  Popover,
+} from 'react-bootstrap';
+
 import style from './styles/card.scss';
-import { Alert, FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import CardModal from './CardModal';
 
-const Card = (props) => {
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const classStyle = {
-    1: style.card_1,
-    2: style.card_2,
-    3: style.card_3,
-    4: style.card_4,
-    5: style.card_5,
-    6: style.card_6,
+    this.state = {
+      showCardModal: false,
+      addOrRemoveMemories: 'Add to Memories',
+      addOrRemoveBucketList: 'Add to Bucket List',
+    }
+
+    this.openCardModal = this.openCardModal.bind(this);
+    this.closeCardModal = this.closeCardModal.bind(this);
   }
 
-  return (
-    <div className={style.card} id={classStyle[props.classNumber]}>
-      <img className={style.card_image} src={props.destination.picture} alt="Card image" />
-      <div className>
-            <h5 className>{props.destination.name}</h5>
-        <Button className={style.detail_button} type="button" bsStyle="info" bsSize="sm" block >Details</Button>
+  openCardModal() {
+    this.setState({ showCardModal: true });
+  }
+
+  closeCardModal() {
+    this.setState({ showCardModal: false });
+  }
+
+  render() {
+
+    const classStyle = {
+      1: style.card_1,
+      2: style.card_2,
+      3: style.card_3,
+      4: style.card_4,
+      5: style.card_5,
+      6: style.card_6,
+    }
+
+    const popoverLeft = (
+      <Popover id="popover-positioned-left" title={`In ${this.props.destination.memories} memories lists`}>
+        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons}>{this.state.addOrRemoveMemories}</Button>
+      </Popover>
+    );
+    
+    const popoverRight = (
+      <Popover id="popover-positioned-right" title={`In ${this.props.destination.bucket_list} bucket lists`}>
+        <Button bsStyle="primary" bsSize="sm">{this.state.addOrRemoveBucketList}</Button>
+      </Popover>
+    );
+
+
+    return (
+      <div className={style.card} id={classStyle[this.props.classNumber]}>
+        <h5>{this.props.destination.name}</h5>
+        <img className={style.card_image} src={this.props.destination.picture} alt="Card image" />
+        <Button className={style.detail_button} onClick={this.openCardModal} type="button" bsSize="sm" block >Details</Button>
+        <div className={style.save}>
+          <OverlayTrigger trigger="click" placement="left" overlay={popoverLeft}>
+            <Button className={style.save_button} bsSize="sm"><img className={style.save_image} src="https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/media-pict-camera.png" /></Button>
+          </OverlayTrigger>
+          <OverlayTrigger trigger="click" placement="right" overlay={popoverRight}>
+            <Button className={style.save_button} bsSize="sm"><img className={style.save_image} src="https://d30y9cdsu7xlg0.cloudfront.net/png/47078-200.png" /></Button>
+          </OverlayTrigger>
+        </div>
+
+        <CardModal showCardModal={this.state.showCardModal} closeCardModal={this.closeCardModal}/>
       </div>
-      <div className={style.memories}><Button className={style.attribute_button} bsSize="sm"><img className={style.attribute_image} src="https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/media-pict-camera.png" /></Button> In {props.destination.memories} memories </div>
-      <div><Button className={style.attribute_button} bsSize="sm"><img className={style.attribute_image} src="https://d30y9cdsu7xlg0.cloudfront.net/png/29962-200.png" /></Button> In {props.destination.bucket_list} bucket lists </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Card;
-

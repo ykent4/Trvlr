@@ -33,17 +33,18 @@ class ConnectedLogin extends React.Component {
 
   }
 
+
   handleLoginClick() {
 
-    this.props.getUser(this.state.username);
-
-    setTimeout(() => {
-      if (!!this.props.user) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ unauthenticated: true });
-      }
-    }, 100);
+    this.props.getUser(this.state.username)
+      .then((result) => {
+        if (!!this.props.user) {
+          this.setState({ loggedIn: true });
+        } else {
+          this.setState({ unauthenticated: true });
+          console.log('authentification ', this.state.unauthenticated);
+        }
+      });
 
   }
 
@@ -52,8 +53,6 @@ class ConnectedLogin extends React.Component {
     if (this.state.loggedIn) {
       return <Redirect to={'/destination'} />
     }
-
-    console.log('logged in ', this.state.loggedIn);
 
     return (
 
@@ -73,7 +72,10 @@ class ConnectedLogin extends React.Component {
             />
             <HelpBlock>Please enter username to login</HelpBlock>
           </FormGroup>
-          <Button type="button" onClick={this.handleLoginClick}>Login</Button>
+          <Button type="button" onClick={() => {
+              this.handleLoginClick();
+              this.props.rerenderNavBar();
+            }}>Login</Button>
           <Button type="button" >Sign Up</Button>
 
         </form>
@@ -89,7 +91,6 @@ class ConnectedLogin extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state -->', state.Login.user);
   return {
     user: state.Login.user
   };

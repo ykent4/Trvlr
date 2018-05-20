@@ -1,7 +1,7 @@
 .container {
   display: inline-grid;
   position: fixed;
-  grid-template-columns: 42% 15% 45%;
+  grid-template-columns: 40% 20% 40%;
   grid-template-rows: 48%;
   margin: auto;
   width: 100%;
@@ -10,3 +10,5 @@
   justify-items: center;
   align-items: center;
 }
+
+//42, 15, 45

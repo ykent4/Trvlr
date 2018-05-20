@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
 import style from './styles/navbar.scss';
 
-class NavigationBar extends React.Component {
+class ConnectedNavBar extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,7 +15,14 @@ class NavigationBar extends React.Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.user !== null) {
+      this.setState({ username: nextProps.user.username });
+    }
+  }
+
   render() {
+
     return (
       <Navbar className={style.navbar} inverse collapseOnSelect>
         <Navbar.Header>
@@ -32,5 +40,12 @@ class NavigationBar extends React.Component {
     )
   };
 }
+const mapStateToProps = state => {
+  return {
+    user: state.Login.user
+  };
+}
+
+const NavigationBar = connect(mapStateToProps)(ConnectedNavBar);
 
 export default NavigationBar;
