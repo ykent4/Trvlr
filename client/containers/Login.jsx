@@ -67,10 +67,9 @@ class ConnectedLogin extends React.Component {
               className={style.input_box}
               type="text"
               value={this.state.username}
-              placeholder="Enter username"
+              placeholder="Please enter your username"
               onChange={this.handleUsernameInput}
             />
-            <HelpBlock>Please enter username to login</HelpBlock>
           </FormGroup>
           <Button type="button" onClick={() => {
               this.handleLoginClick();

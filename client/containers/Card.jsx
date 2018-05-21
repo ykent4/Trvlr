@@ -25,6 +25,19 @@ class Card extends React.Component {
 
     this.openCardModal = this.openCardModal.bind(this);
     this.closeCardModal = this.closeCardModal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick);
+  }
+
+  handleClick() {
+
   }
 
   openCardModal() {
@@ -65,15 +78,15 @@ class Card extends React.Component {
         <img className={style.card_image} src={this.props.destination.picture} alt="Card image" />
         <Button className={style.detail_button} onClick={this.openCardModal} type="button" bsSize="sm" block >Details</Button>
         <div className={style.save}>
-          <OverlayTrigger trigger="click" placement="left" overlay={popoverLeft}>
+          <OverlayTrigger trigger="click" rootClose={true} placement="left" overlay={popoverLeft}>
             <Button className={style.save_button} bsSize="sm"><img className={style.save_image} src="https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/media-pict-camera.png" /></Button>
           </OverlayTrigger>
-          <OverlayTrigger trigger="click" placement="right" overlay={popoverRight}>
+          <OverlayTrigger trigger="click" rootClose={true} placement="right" overlay={popoverRight}>
             <Button className={style.save_button} bsSize="sm"><img className={style.save_image} src="https://d30y9cdsu7xlg0.cloudfront.net/png/47078-200.png" /></Button>
           </OverlayTrigger>
         </div>
 
-        <CardModal showCardModal={this.state.showCardModal} closeCardModal={this.closeCardModal}/>
+        <CardModal showCardModal={this.state.showCardModal} closeCardModal={this.closeCardModal} destination={this.props.destination}/>
       </div>
     );
   }

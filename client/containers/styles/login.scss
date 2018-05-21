@@ -4,16 +4,29 @@ body {
 
 .login_container {
   margin: auto;
-  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 350px;
   text-align: center;
+  margin: -150px 0 0 -175px;
+
+  h2 {
+    font-size: 60px;
+    margin: 13%;
+    // color: rgb(85, 85, 85);
+    color: black;
+    text-shadow: 1px 1px 2px #000000;
+  }
 
   Button {
-    margin: 3px;
+    margin: 5% 5px 5px 5px;
   }
 }
 
 .input_box {
   border-color: #f1f1f8;
+  width: 100%;
 }
 
 .alert {
