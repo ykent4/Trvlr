@@ -14,6 +14,8 @@ const destinationSchema = new mongoose.Schema({
   picture: String,
   bucket_list: Number,
   memories: Number
+},{
+  usePushEach: true
 });
 
 const userSchema = new mongoose.Schema({
@@ -25,6 +27,8 @@ const userSchema = new mongoose.Schema({
     destination: String,
     text: String
   }]
+},{
+  usePushEach: true
 });
 
 module.exports.Destination = mongoose.model('Destination', destinationSchema);

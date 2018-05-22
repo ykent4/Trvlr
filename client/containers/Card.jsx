@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 import {
   Alert,
   FormGroup,
@@ -10,10 +12,16 @@ import {
   Popover,
 } from 'react-bootstrap';
 
+import { 
+  addMemories, 
+  removeMemories, 
+  addBucketList, 
+  removeBucketList 
+} from '../js/actions';
 import style from './styles/card.scss';
 import CardModal from './CardModal';
 
-class Card extends React.Component {
+class ConnectedCard extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,19 +33,6 @@ class Card extends React.Component {
 
     this.openCardModal = this.openCardModal.bind(this);
     this.closeCardModal = this.closeCardModal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick);
-  }
-
-  handleClick() {
-
   }
 
   openCardModal() {
@@ -61,16 +56,15 @@ class Card extends React.Component {
 
     const popoverLeft = (
       <Popover id="popover-positioned-left" title={`In ${this.props.destination.memories} memories lists`}>
-        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons}>{this.state.addOrRemoveMemories}</Button>
+        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons} onClick={() => this.props.addMemories(this.props.user.username, this.props.destination.name, 'destination')}>{this.state.addOrRemoveMemories}</Button>
       </Popover>
     );
-    
+
     const popoverRight = (
       <Popover id="popover-positioned-right" title={`In ${this.props.destination.bucket_list} bucket lists`}>
         <Button bsStyle="primary" bsSize="sm">{this.state.addOrRemoveBucketList}</Button>
       </Popover>
     );
-
 
     return (
       <div className={style.card} id={classStyle[this.props.classNumber]}>
@@ -86,10 +80,21 @@ class Card extends React.Component {
           </OverlayTrigger>
         </div>
 
-        <CardModal showCardModal={this.state.showCardModal} closeCardModal={this.closeCardModal} destination={this.props.destination}/>
+        <CardModal showCardModal={this.state.showCardModal} closeCardModal={this.closeCardModal} destination={this.props.destination} />
       </div>
     );
   }
 };
 
+const mapStateToProps = state => {
+  return {
+    user: state.Login.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ addMemories, removeMemories, addBucketList, removeBucketList }, dispatch);
+}
+
+const Card = connect(mapStateToProps, mapDispatchToProps)(ConnectedCard);
 export default Card;

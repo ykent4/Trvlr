@@ -9,7 +9,7 @@ function createDestinationData () {
   for(let i = 0; i < 50; i++) {
     destinationArr.push({
       name: faker.address.streetName(),
-      description: faker.lorem.sentence(),
+      description: faker.lorem.paragraph(),
       picture: `https://s3-us-west-1.amazonaws.com/hrsf93-fec-pictures/Living+Room/livingroomimage${i+1}.jpg`,
       bucket_list: Math.floor(Math.random() * Math.floor(10)),
       memories: Math.floor(Math.random() * Math.floor(10)),

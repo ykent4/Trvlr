@@ -5,12 +5,11 @@ module.exports = {
   user: {
 
     get: function (req, res) {
-      model.user.get(req.params.username, function(err, result) {
-        if(err) {
+      model.user.get(req.params.username, function (err, result) {
+        if (err) {
           res.sendStatus(500);
           return;
         } else {
-          console.log('GET USER RESULT:: ', result);
           res.json(result);
         }
       });
@@ -29,71 +28,141 @@ module.exports = {
         }]
       }
 
-      model.user.signUpUser(user, function(err, result) {
-        if(err) {
+      model.user.signUpUser(user, function (err, result) {
+        if (err) {
           console.log('controller user signup error ::', err)
         } else {
-          res.sendStatus(201);
+          res.json(result);
         }
       });
     },
+
+
+    postBlogEntries: function (req, res) {
+      model.user.postBlogEntires(req.body.user, function (err, result) {
+        if (err) {
+          console.log('controller user post blog entries error ::', err)
+        } else {
+          res.end();
+        }
+      });
+    },
+
+    deleteBlogEntries: function (req, res) {
+      model.user.postBlogEntires(req.body.user, function (err, result) {
+        if (err) {
+          console.log('controller user post blog entries error ::', err)
+        } else {
+          res.end();
+        }
+      });
+    }
+  },
+
+  lists: {
 
     putBucketList: function (req, res) {
-      model.user.putBucketList(req.body.user, function(err, result) {
-        if(err) {
+      model.user.putBucketList(req.body.username, req.body.destination, function (err, result) {
+        if (err) {
           console.log('controller user put bucket_list error ::', err)
         } else {
-          res.sendStatus(201);
+          if (req.body.usage === 'user') {
+            res.json(result);
+          } else {
+            res.end();
+          }
+        }
+      });
+
+      model.destination.putBucketList(req.body.destination, function (err, result) {
+        if (err) {
+          console.log('controller user put bucket_list error ::', err)
+        } else {
+          if (req.body.usage === 'destination') {
+            res.json(result);
+          } else {
+            res.end();
+          }
         }
       });
     },
 
-    removeBucketList: function (req, res) {
-      model.user.removeBucketList(req.body.user, function(err, result) {
-        if(err) {
-          console.log('controller user remove bucket_list error ::', err)
+    deleteBucketList: function (req, res) {
+      model.user.deleteBucketList(req.body.username, req.body.destination, function (err, result) {
+        if (err) {
+          console.log('controller user delete bucket_list error ::', err)
         } else {
-          res.sendStatus(202);
+          if (req.body.usage === 'user') {
+            res.json(result);
+          } else {
+            res.end();
+          }
+        }
+      });
+
+      model.destination.deleteBucketList(req.body.destination, function (err, result) {
+        if (err) {
+          console.log('controller user put bucket_list error ::', err)
+        } else {
+          if (req.body.usage === 'destination') {
+            res.json(result);
+          } else {
+            res.end();
+          }
         }
       });
     },
 
     putMemories: function (req, res) {
-      model.user.putMemories(req.body.user, function(err, result) {
-        if(err) {
+      model.user.putMemories(req.body.username, req.body.destination, function (err, result) {
+        if (err) {
           console.log('controller user put memories error ::', err)
         } else {
-          res.sendStatus(201);
+          if (req.body.usage === 'user') {
+            res.json(result);
+          }
+          // else {
+          //   res.end();
+          // }
+        }
+      });
+
+      model.destination.putMemories(req.body.destination, function (err, result) {
+        if (err) {
+          console.log('controller user put memories error destination::', err)
+        } else {
+          if (req.body.usage === 'destination') {
+            res.json(result);
+          } 
+          // else {
+          //   res.end();
+          // }
         }
       });
     },
 
-    removeMemories: function (req, res) {
-      model.user.postMemories(req.body.user, function(err, result) {
-        if(err) {
+    deleteMemories: function (req, res) {
+      model.user.postMemories(req.body.username, req.body.destination, function (err, result) {
+        if (err) {
           console.log('controller user post memories error ::', err)
         } else {
-          res.sendStatus(202);
+          if (req.body.usage === 'user') {
+            res.json(result);
+          } else {
+            res.end();
+          }
         }
       });
-    },
 
-    postBlogEntries: function (req, res) {
-      model.user.postBlogEntires(req.body.user, function(err, result) {
-        if(err) {
-          console.log('controller user post blog entries error ::', err)
+      model.destination.deleteBucketList(req.body.destination, function (err, result) {
+        if (err) {
+          console.log('controller user put bucket_list error ::', err)
         } else {
-          res.sendStatus(201);
-        }
-      });
-    },
-
-    removeBlogEntries: function (req, res) {
-      model.user.postBlogEntires(req.body.user, function(err, result) {
-        if(err) {
-          console.log('controller user post blog entries error ::', err)
-        } else {
-          res.sendStatus(202);
+          if (req.body.usage === 'destination') {
+            res.json(result);
+          } else {
+            res.end();
+          }
         }
       });
     }
@@ -103,37 +172,36 @@ module.exports = {
   destination: {
 
     get: function (req, res) {
-      model.destination.get(function(err, result) {
-        if(err) {
+      model.destination.get(function (err, result) {
+        if (err) {
           console.log('controller destination get error ', err);
-          res.sendStatus(500);          
+          res.sendStatus(500);
           return;
         } else {
-          res.send(result);
-        }      
-      });
-    },
-
-    putBucketList: function (req, res) {
-      model.destination.putBucketList(function(err, result) {
-        if(err) {
-          console.log('controller user put bucket_list error ::', err)
-        } else {
-          res.sendStatus(201);
+          res.json(result);
         }
       });
     },
 
-    putMemories: function (req, res) {
-      model.destination.putMemories(function(err, result) {
-        if(err) {
-          console.log('controller user put memories error ::', err)
-        } else {
-          res.sendStatus(201);
-        }
-      });
-    },
+    // putBucketList: function (req, res) {
+    //   model.destination.putBucketList(function (err, result) {
+    //     if (err) {
+    //       console.log('controller user put bucket_list error ::', err)
+    //     } else {
+    //       res.sendStatus(201);
+    //     }
+    //   });
+    // },
+
+    // putMemories: function (req, res) {
+    //   model.destination.putMemories(function (err, result) {
+    //     if (err) {
+    //       console.log('controller user put memories error ::', err)
+    //     } else {
+    //       res.sendStatus(201);
+    //     }
+    //   });
+    // },
 
   },
 };
-  

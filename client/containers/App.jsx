@@ -39,9 +39,9 @@ class App extends React.Component {
             render={(props) => <Login {...props} rerenderNavBar={this.rerenderNavBar} />}
           />
           <Route path='/destination' component={Destination} />
-          {/* <Route path='/user' component={User} />
-          <Route path='/user/bucket_list' component={BucketList} />
-          <Route path='/user/memories' component={Memories} /> */}
+          {/* <Route exact path='/user' component={User} />
+          <Route exact path='/user/bucket_list' component={BucketList} />
+          <Route exact path='/user/memories' component={Memories} /> */}
         </Switch>
       </div>
     );
