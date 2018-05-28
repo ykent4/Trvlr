@@ -69,17 +69,19 @@ module.exports = {
         .catch((err) => console.log('user model deleteBucketList err :: ', err));
     },
 
-    putMemories: function (user, location, cb) {
-      db.User.findOne({ name: user })
-        .then((user) => {
-          if (user.memories.includes(location)) {
-            console.log('already put to memories');
+    putMemories: function (username, location, cb) {
+      db.User.find({ username: username })
+      .then((user) => {
+        console.log('username -----> ', user);            
+          if (user[0].memories.includes(location)) {
+            console.log('user -----> ', user);
             return;
           } else {
-            user.memories.push(location);
+            console.log('user -----> ', user);            
+            user[0].memories.push(location);
           }
 
-          user.save((err, updatedUser) => {
+          user[0].save((err, updatedUser) => {
             if (err) {
               console.log('user putMemories save err :: ', err);
             } else {

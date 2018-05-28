@@ -114,7 +114,7 @@ module.exports = {
     },
 
     putMemories: function (req, res) {
-      model.user.putMemories(req.body.username, req.body.destination, function (err, result) {
+      model.user.putMemories(req.body.user, req.body.destination, function (err, result) {
         if (err) {
           console.log('controller user put memories error ::', err)
         } else {

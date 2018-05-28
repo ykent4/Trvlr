@@ -9,15 +9,7 @@
   },
   "scripts": {
     "start": "nodemon server/index.js",
-    "dev:react": "webpack -d --watch",
-    "test": "jest --coverage"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "./test/testSetUp.js",
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
+    "dev:react": "webpack -d --watch"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

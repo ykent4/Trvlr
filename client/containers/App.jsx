@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux';
 import { Route, Switch } from 'react-router-dom'
 
 import Actions from '../js/actions/index.js';
-import BucketList from './BucketList.jsx';
-import Destination from './Destination.jsx';
-import Login from './Login.jsx';
-import Memories from './Memories.jsx';
-import NavigationBar from './NavigationBar.jsx';
-import User from './User.jsx';
+// import BucketListContainer from './BucketListContainer';
+import DestinationContainer from './DestinationContainer';
+import LoginContainer from './LoginContainer';
+// import MemoriesContainer from './MemoriesContainer.jsx';
+import NavigationBarContainer from './NavigationBarContainer.jsx';
+// import UserContainer from './UserContainer.jsx';
 
 //changes views between login page, destination page and profile page
 class App extends React.Component {
@@ -32,13 +32,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavigationBar rerender={this.state.reRender}/>  
+        <NavigationBarContainer rerender={this.state.reRender}/>  
         <Switch>
           <Route
             exact path='/'
-            render={(props) => <Login {...props} rerenderNavBar={this.rerenderNavBar} />}
+            render={(props) => <LoginContainer {...props} rerenderNavBar={this.rerenderNavBar} />}
           />
-          <Route path='/destination' component={Destination} />
+          <Route path='/destination' component={DestinationContainer} />
           {/* <Route exact path='/user' component={User} />
           <Route exact path='/user/bucket_list' component={BucketList} />
           <Route exact path='/user/memories' component={Memories} /> */}
@@ -49,19 +49,4 @@ class App extends React.Component {
 
 }
 
-// const mapStateToProps = state => {
-//   console.log(state);
-//   return {
-//     loginView: state.LoginView,
-//     destinationView: state.DestinationView,
-//     userView: state.UserView
-//   };
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//   };
-// };
-
-// const App = connect(mapStateToProps)(ConnectedApp);
 export default App;

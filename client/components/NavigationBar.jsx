@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from "react-redux";
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
 import style from './styles/navbar.scss';
 
-class ConnectedNavBar extends React.Component {
+class NavigationBar extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,12 +39,5 @@ class ConnectedNavBar extends React.Component {
     )
   };
 }
-const mapStateToProps = state => {
-  return {
-    user: state.Login.user
-  };
-}
-
-const NavigationBar = connect(mapStateToProps)(ConnectedNavBar);
 
 export default NavigationBar;

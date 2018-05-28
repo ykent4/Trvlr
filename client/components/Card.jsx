@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
 import {
   Alert,
   FormGroup,
@@ -12,16 +10,10 @@ import {
   Popover,
 } from 'react-bootstrap';
 
-import { 
-  addMemories, 
-  removeMemories, 
-  addBucketList, 
-  removeBucketList 
-} from '../js/actions';
 import style from './styles/card.scss';
 import CardModal from './CardModal';
 
-class ConnectedCard extends React.Component {
+class Card extends React.Component {
   constructor(props) {
     super(props);
 
@@ -86,15 +78,4 @@ class ConnectedCard extends React.Component {
   }
 };
 
-const mapStateToProps = state => {
-  return {
-    user: state.Login.user
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ addMemories, removeMemories, addBucketList, removeBucketList }, dispatch);
-}
-
-const Card = connect(mapStateToProps, mapDispatchToProps)(ConnectedCard);
 export default Card;

@@ -5,10 +5,10 @@ import style from './styles/destination.scss';
 import { Pager } from 'react-bootstrap';
 
 import { getDestinations } from '../js/actions/index.js';
-import Card from './card.jsx';
+import CardContainer from '../containers/CardContainer';
 
 //render the destinations page
-class ConnectedDestination extends React.Component {
+class Destination extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ class ConnectedDestination extends React.Component {
 
     return sixCards.map((destination) => {
       classCounter++;
-      return <Card key={destination.name} destination={destination} classNumber={classCounter} />
+      return <CardContainer key={destination.name} destination={destination} classNumber={classCounter} />
     })
   }
 
@@ -77,14 +77,4 @@ class ConnectedDestination extends React.Component {
 
 }
 
-const mapStateToProps = state => {
-  return { destinations: state.Destination.destinations };
-};
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getDestinations }, dispatch);
-};
-
-const Destination = connect(mapStateToProps, mapDispatchToProps)(ConnectedDestination);
 export default Destination;
-

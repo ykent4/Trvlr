@@ -1,17 +1,12 @@
 import React from 'react';
-import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { getUser, signUpUser } from '../js/actions/index.js';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import '!style-loader!css-loader!react-toastify/dist/ReactToastify.css';
 import { Alert, FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 
 import style from './styles/login.scss';
 
-//changes views between login page, destination page and profile page
-class ConnectedLogin extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -63,7 +58,7 @@ class ConnectedLogin extends React.Component {
     }
   }
 
-  notifySignUp () {
+  notifySignUp() {
     toast('🎉 you have successfully signed up, please proceed to login', {
       position: 'bottom-center',
       autoClose: 2000,
@@ -130,15 +125,4 @@ class ConnectedLogin extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.Login.user
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getUser, signUpUser }, dispatch);
-};
-
-const Login = connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin);
 export default Login;
