@@ -6,7 +6,7 @@ import {
   addMemories, 
   removeMemories, 
   addBucketList, 
-  removeBucketList 
+  removeBucketList, 
 } from '../js/actions';
 import Card from '../components/Card.jsx';
 

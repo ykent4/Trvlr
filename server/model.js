@@ -23,7 +23,7 @@ module.exports = {
     },
 
     putBucketList: function (user, location, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ username: user })
         .then((user) => {
           if (user.bucket_list.includes(location)) {
             console.log('already put to bucket_list');
@@ -44,16 +44,11 @@ module.exports = {
     },
 
     deleteBucketList: function (user, location, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ username: user })
         .then((user) => {
           if (user.bucket_list.includes(location)) {
             user.bucket_list.splice(user.bucket_list.indexOf(location))            
-            // for (let i = 0; i < user.bucket_list.length; i++) {
-            //   if (user.bucket_list[i] === location) {
-            //     user.bucket_list.splice(i, 1);
-            //   }
-            // }
-          } else {
+             } else {
             console.log('already deleted');
             return;
           }
@@ -69,19 +64,17 @@ module.exports = {
         .catch((err) => console.log('user model deleteBucketList err :: ', err));
     },
 
-    putMemories: function (username, location, cb) {
-      db.User.find({ username: username })
-      .then((user) => {
-        console.log('username -----> ', user);            
-          if (user[0].memories.includes(location)) {
-            console.log('user -----> ', user);
+    putMemories: function (user, location, cb) {
+      db.User.findOne({ username: user })
+        .then((user) => {
+          if (user.memories.includes(location)) {
+            console.log('already put to memories ', user, ' memories ---> ', user.memories);
             return;
           } else {
-            console.log('user -----> ', user);            
-            user[0].memories.push(location);
+            user.memories.push(location);
           }
 
-          user[0].save((err, updatedUser) => {
+          user.save((err, updatedUser) => {
             if (err) {
               console.log('user putMemories save err :: ', err);
             } else {
@@ -93,7 +86,7 @@ module.exports = {
     },
 
     deleteMemories: function (user, location, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ username: user })
         .then((user) => {
           if (user.memories.includes(location)) {
             user.memories.splice(user.memories.indexOf(location))
@@ -110,12 +103,11 @@ module.exports = {
             }
           });
         })
-        .catch((err) => console.log('user model deleteMemories err :: ', err))
-        .exec(cb);
+        .catch((err) => console.log('user model deleteMemories err :: ', err));
     },
 
     postBlogEntries: function (user, blogPost, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ username: user })
         .then((user) => {
           if (user.blog_posts.includes(location)) {
             console.log('already posted to blog_posts');
@@ -136,15 +128,10 @@ module.exports = {
     },
 
     deleteBlogEntries: function (user, blogPost, cb) {
-      db.User.findOne({ name: user })
+      db.User.findOne({ username: user })
         .then((user) => {
           if (user.blog_posts.includes(location)) {
             user.blog_posts.splice(user.blog_posts.indexOf(location))            
-            // for (let i = 0; i < user.blog_posts.length; i++) {
-            //   if (user.blog_posts[i] === location) {
-            //     user.blog_posts.splice(i, 1);
-            //   }
-            // }
           } else {
             console.log('already deleted');
             return;
@@ -159,9 +146,7 @@ module.exports = {
           }
           ));
         })
-        .catch((err) => console.log('user model deleteBlogEntries err :: ', err))
-        .exec(cb);
-
+        .catch((err) => console.log('user model deleteBlogEntries err :: ', err));
     },
 
   },
@@ -186,8 +171,8 @@ module.exports = {
 
     deleteBucketList: function (destination, cb) {
       db.Destination.findOneAndUpdate({ name: destination }, { $inc: { bucket_list: -1 } })
+        .then(result => cb(result))
         .catch((err) => console.log('destination model delete bucket list err :: ', err))
-        .exec(cb);
     },
 
     putMemories: function (destination, cb) {
@@ -202,8 +187,8 @@ module.exports = {
 
     deleteMemories: function (destination, cb) {
       db.Destination.findOneAndUpdate({ name: destination }, { $inc: { memories: -1 } })
+        .then(result => cb(result))
         .catch((err) => console.log('destination model delete bucket list err :: ', err))
-        .exec(cb);
     },
 
   }

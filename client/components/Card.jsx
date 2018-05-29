@@ -27,12 +27,53 @@ class Card extends React.Component {
     this.closeCardModal = this.closeCardModal.bind(this);
   }
 
+  componentDidMount() {
+
+    if (this.props.user.memories.includes(this.props.destination.name)) {
+      this.setState({ addOrRemoveMemories: 'Remove from Memories' });
+    } else {
+      this.setState({ addOrRemoveMemories: 'Add to Memories' })
+    }
+
+    if (this.props.user.bucket_list.includes(this.props.destination.name)) {
+      this.setState({ addOrRemoveBucketList: 'Remove from Bucket List' })
+    } else {
+      this.setState({ addOrRemoveBucketList: 'Add to Bucket List' })
+    }
+
+
+  }
+
   openCardModal() {
     this.setState({ showCardModal: true });
   }
 
   closeCardModal() {
     this.setState({ showCardModal: false });
+  }
+
+  handleMemoriesClick() {
+
+    if (this.props.user.memories.includes(this.props.destination.name)) {
+      this.props.removeMemories(this.props.user.username, this.props.destination.name, 'destination');
+      this.setState({ addOrRemoveMemories: 'Remove from Memories' });
+    } else {
+      this.props.addMemories(this.props.user.username, this.props.destination.name, 'destination')
+      this.setState({ addOrRemoveMemories: 'Add to Memories' })
+    }
+
+  }
+
+  handleBucketListClick() {
+
+    if (this.props.user.bucket_list.includes(this.props.destination.name)) {
+      this.props.removeBucketList(this.props.user.username, this.props.destination.name, 'destination');
+      this.setState({ addOrRemoveBucketList: 'Remove from Bucket List' })
+    } else {
+      this.props.addBucketList(this.props.user.username, this.props.destination.name, 'destination')
+      this.setState({ addOrRemoveBucketList: 'Add to Bucket List' })
+    }
+
   }
 
   render() {
@@ -48,13 +89,13 @@ class Card extends React.Component {
 
     const popoverLeft = (
       <Popover id="popover-positioned-left" title={`In ${this.props.destination.memories} memories lists`}>
-        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons} onClick={() => this.props.addMemories(this.props.user.username, this.props.destination.name, 'destination')}>{this.state.addOrRemoveMemories}</Button>
+        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons} onClick={() => this.handleMemoriesClick()}>{this.state.addOrRemoveMemories}</Button>
       </Popover>
     );
 
     const popoverRight = (
       <Popover id="popover-positioned-right" title={`In ${this.props.destination.bucket_list} bucket lists`}>
-        <Button bsStyle="primary" bsSize="sm">{this.state.addOrRemoveBucketList}</Button>
+        <Button bsStyle="primary" bsSize="sm" className={style.add_buttons} onClick={() => this.handleBucketListClick()}>{this.state.addOrRemoveBucketList}</Button>
       </Popover>
     );
 

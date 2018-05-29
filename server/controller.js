@@ -68,8 +68,6 @@ module.exports = {
         } else {
           if (req.body.usage === 'user') {
             res.json(result);
-          } else {
-            res.end();
           }
         }
       });
@@ -80,8 +78,6 @@ module.exports = {
         } else {
           if (req.body.usage === 'destination') {
             res.json(result);
-          } else {
-            res.end();
           }
         }
       });
@@ -94,8 +90,6 @@ module.exports = {
         } else {
           if (req.body.usage === 'user') {
             res.json(result);
-          } else {
-            res.end();
           }
         }
       });
@@ -106,8 +100,6 @@ module.exports = {
         } else {
           if (req.body.usage === 'destination') {
             res.json(result);
-          } else {
-            res.end();
           }
         }
       });
@@ -121,9 +113,6 @@ module.exports = {
           if (req.body.usage === 'user') {
             res.json(result);
           }
-          // else {
-          //   res.end();
-          // }
         }
       });
 
@@ -134,35 +123,28 @@ module.exports = {
           if (req.body.usage === 'destination') {
             res.json(result);
           } 
-          // else {
-          //   res.end();
-          // }
         }
       });
     },
 
     deleteMemories: function (req, res) {
-      model.user.postMemories(req.body.username, req.body.destination, function (err, result) {
+      model.user.deleteMemories(req.body.username, req.body.destination, function (err, result) {
         if (err) {
           console.log('controller user post memories error ::', err)
         } else {
           if (req.body.usage === 'user') {
             res.json(result);
-          } else {
-            res.end();
-          }
+          } 
         }
       });
 
-      model.destination.deleteBucketList(req.body.destination, function (err, result) {
+      model.destination.deleteMemories(req.body.destination, function (err, result) {
         if (err) {
-          console.log('controller user put bucket_list error ::', err)
+          console.log('controller user put memories error ::', err)
         } else {
           if (req.body.usage === 'destination') {
             res.json(result);
-          } else {
-            res.end();
-          }
+          } 
         }
       });
     }
@@ -182,26 +164,5 @@ module.exports = {
         }
       });
     },
-
-    // putBucketList: function (req, res) {
-    //   model.destination.putBucketList(function (err, result) {
-    //     if (err) {
-    //       console.log('controller user put bucket_list error ::', err)
-    //     } else {
-    //       res.sendStatus(201);
-    //     }
-    //   });
-    // },
-
-    // putMemories: function (req, res) {
-    //   model.destination.putMemories(function (err, result) {
-    //     if (err) {
-    //       console.log('controller user put memories error ::', err)
-    //     } else {
-    //       res.sendStatus(201);
-    //     }
-    //   });
-    // },
-
   },
 };
