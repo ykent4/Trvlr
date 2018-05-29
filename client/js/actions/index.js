@@ -25,13 +25,6 @@ import {
   addBucketList,
   removeBucketList,
 } from './Lists.js';
-// import { 
-//   CHANGE_VIEW, 
-//   changeView 
-// } from './View.js';
-// import { LOGIN_VIEW } from './LoginView';
-// import { TOGGLE_DESTINATION_VIEW } from './DestinationView.js';
-// import { TOGGLE_USER_VIEW } from './UserView.js';
 
 
 export {
@@ -52,9 +45,4 @@ export {
   SIGN_UP_USER,
   SIGN_UP_USER_SUCCESS,
   signUpUser,
-  // CHANGE_VIEW,
-  // changeView,
-  // LOGIN_VIEW,
-  // TOGGLE_DESTINATION_VIEW,
-  // TOGGLE_USER_VIEW
 };

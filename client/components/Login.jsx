@@ -22,11 +22,6 @@ class Login extends React.Component {
     this.notifySignUp = this.notifySignUp.bind(this);
   }
 
-  //on submit of the button, needs to make an axios get request to the user database
-  //if success, there is user, send back user and data
-  //if failure, ask if new user? if yes, create user and continue
-  //go to destination in both cases
-
   handleUsernameInput(e) {
 
     this.setState({ username: e.target.value });

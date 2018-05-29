@@ -2,10 +2,7 @@ const db = require('../database/index.js');
 
 module.exports = {
 
-  //REFACTOR SERVER AS ALL THE POSTS AND DELETES ARE VERY SIMILAR
-
   user: {
-    //gets all the locations saved and traveled for the user
     get: function (user, cb) {
       db.User.findOne({ "username": user })
         .exec(cb);

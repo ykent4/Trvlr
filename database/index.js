@@ -33,31 +33,3 @@ const userSchema = new mongoose.Schema({
 
 module.exports.Destination = mongoose.model('Destination', destinationSchema);
 module.exports.User = mongoose.model('User', userSchema);
-
-// let getImages = (redis, saveRequest, id, callback) => {
-//   redis.get(id, function (err, reply) {
-//     if (err) { 
-//       callback(null); 
-//     } else if (reply && !saveRequest) {
-//       callback(JSON.parse(reply));
-//     } else {
-//       Image.
-//         findOne({ id: id }, function (err, result) {
-//           if (err) {
-//             console.log('DATABASE GET ERROR ', err);
-//             return;
-//           } else {
-//             redis.set(id, JSON.stringify(result), () => callback(result));
-//           }
-//         });
-//     }
-//   });
-// };
-
-// let patchImageShare = (id, callback) => {
-//   Image.findOneAndUpdate({ id: id },
-//     { $set: { shared: true } },
-//     { new: true },
-//     callback);
-// };
-

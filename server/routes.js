@@ -20,10 +20,5 @@ router.post('/user/post_blog_entries', controller.user.postBlogEntries);
 router.delete('/user/remove_blog_entries', controller.user.deleteBlogEntries);
 
 
-// router.put('/destination/bucket_list', controller.destination.putBucketList);
-
-// router.put('/destination/memories', controller.destination.putMemories);
-
-
 module.exports = router;
 

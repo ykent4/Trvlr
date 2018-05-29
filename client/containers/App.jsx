@@ -11,7 +11,6 @@ import LoginContainer from './LoginContainer';
 import NavigationBarContainer from './NavigationBarContainer.jsx';
 // import UserContainer from './UserContainer.jsx';
 
-//changes views between login page, destination page and profile page
 class App extends React.Component {
   constructor(props) {
     super(props);
